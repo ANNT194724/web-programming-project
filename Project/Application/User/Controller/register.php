@@ -88,15 +88,15 @@ if(empty($f_name) || empty($l_name) || empty($email) || empty($password) || empt
 		";
 		exit();
 	}
-	if(!(strlen($mobile) == 10)){
-		echo "
-			<div class='alert alert-warning'>
-				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-				<b>Mobile number must be 10 digit</b>
-			</div>
-		";
-		exit();
-	}
+	// if(!(strlen($mobile) == 10)){
+	// 	echo "
+	// 		<div class='alert alert-warning'>
+	// 			<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+	// 			<b>Mobile number must be 10 digit</b>
+	// 		</div>
+	// 	";
+	// 	exit();
+	// }
 	//existing email address in our database
 	$sql = "SELECT user_id FROM user_info WHERE email = '$email' LIMIT 1" ;
 	$check_query = mysqli_query($con,$sql);

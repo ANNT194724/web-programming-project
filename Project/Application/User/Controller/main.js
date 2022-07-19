@@ -89,35 +89,33 @@ document.addEventListener("DOMContentLoaded", function() {
 		setTimeout(() => {
 			let catList = document.querySelectorAll('.category');
 			for (let i = 0; i < catList.length; i++){
-			catList[i].addEventListener('click', e => {
 				catList[i].addEventListener("click", function(event){
-						document.getElementById("get_product").innerHTML = "<h3>Loading</h3>";
-						event.preventDefault();
-						var cid = catList.item(i).getAttribute("cid");
-						console.log(cid);
-						var ajax = new XMLHttpRequest();
-						ajax.open("POST", "../Controller/action.php", true);
-						ajax.onreadystatechange = function () {
-							if (ajax.readyState !== 4) // check to see if we're done
-								{ return; }
-							else if (ajax.status !== 200) // check to see if successful
-							{
-								alert("Request failed: " + ajax.statusText);
+					document.getElementById("get_product").innerHTML = "<h3>Loading</h3>";
+					event.preventDefault();
+					var cid = catList.item(i).getAttribute("cid");
+					console.log(cid);
+					var ajax = new XMLHttpRequest();
+					ajax.open("POST", "../Controller/action.php", true);
+					ajax.onreadystatechange = function () {
+						if (ajax.readyState !== 4) // check to see if we're done
+							{ return; }
+						else if (ajax.status !== 200) // check to see if successful
+						{
+							alert("Request failed: " + ajax.statusText);
+						}
+					};
+					ajax.onload = function () {
+						var element = document.getElementById("get_product");
+						if(element) {
+							element.innerHTML = ajax.responseText;
+							if(document.body.clientWidth < 480) {
+								document.body.scrollTop = 683;
 							}
-						};
-						ajax.onload = function () {
-							var element = document.getElementById("get_product");
-							if(element) {
-								element.innerHTML = ajax.responseText;
-								if(document.body.clientWidth < 480) {
-									document.body.scrollTop = 683;
-								}
-							}
-						};
-						ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-						ajax.send("get_selected_Category=1&cat_id="+cid.toString());
-						});
-					})
+						}
+					};
+					ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					ajax.send("get_selected_Category=1&cat_id="+cid.toString());
+					});
 				}
 				}, 30);
 	/*	when page is load successfully then there is a list of brands when user click on brand we will get brand id and 
@@ -143,39 +141,40 @@ document.addEventListener("DOMContentLoaded", function() {
 	// })
 
 	setTimeout(() => {
+
 		let brandList = document.querySelectorAll('.selectBrand');
-		for (let i = 0; i < 10; i++){
-		brandList[i].addEventListener('click', e => {
+		// if (brandList){
+		for (let i = 0; i < brandList.length; i++){
 			brandList[i].addEventListener("click", function(event){
-					document.getElementById("get_product").innerHTML = "<h3>Loading</h3>";
-					event.preventDefault();
-					var bid = brandList.item(i).getAttribute("bid");
-					console.log(bid);
-					var ajax = new XMLHttpRequest();
-					ajax.open("POST", "../Controller/action.php", true);
-					ajax.onreadystatechange = function () {
-						if (ajax.readyState !== 4) // check to see if we're done
-							{ return; }
-						else if (ajax.status !== 200) // check to see if successful
-						{
-							alert("Request failed: " + ajax.statusText);
+				document.getElementById("get_product").innerHTML = "<h3>Loading</h3>";
+				event.preventDefault();
+				var bid = brandList.item(i).getAttribute("bid");
+				console.log(bid);
+				var ajax = new XMLHttpRequest();
+				ajax.open("POST", "../Controller/action.php", true);
+				ajax.onreadystatechange = function () {
+					if (ajax.readyState !== 4) // check to see if we're done
+						{ return; }
+					else if (ajax.status !== 200) // check to see if successful
+					{
+						alert("Request failed: " + ajax.statusText);
+					}
+				};
+				ajax.onload = function () {
+					var element = document.getElementById("get_product");
+					if(element) {
+						element.innerHTML = ajax.responseText;
+						if(document.body.clientWidth < 480) {
+							document.body.scrollTop = 683;
 						}
-					};
-					ajax.onload = function () {
-						var element = document.getElementById("get_product");
-						if(element) {
-							element.innerHTML = ajax.responseText;
-							if(document.body.clientWidth < 480) {
-								document.body.scrollTop = 683;
-							}
-						}
-					};
-					ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-					ajax.send("selectBrand=1&brand_id="+bid.toString());
-					});
-				})
+					}
+				};
+				ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				ajax.send("selectBrand=1&brand_id="+bid.toString());
+				});
 			}
-			}, 30);
+		// }
+	}, 30);
 
 
 	/*
@@ -209,71 +208,162 @@ document.addEventListener("DOMContentLoaded", function() {
 		if you get login_success string from login.php page means user is logged in successfully and window.location is 
 		used to redirect user from home page to profile.php page
 	*/
-	$("#login").on("submit",function(event){
-		event.preventDefault();
-		$(".overlay").show();
-		$.ajax({
-			url	:	"../Controller/login.php",
-			method  :	"POST",
-			data	:$("#login").serialize(),
-			success	:function(data){
-				if(data == "login_success"){
+	// $("#login").on("submit",function(event){
+	// 	event.preventDefault();
+	// 	$(".overlay").show();
+	// 	$.ajax({
+	// 		url	:	"../Controller/login.php",
+	// 		method  :	"POST",
+	// 		data	:$("#login").serialize(),
+	// 		success	:function(data){
+	// 			if(data == "login_success"){
+	// 				window.location.href = "profile.php";
+	// 			}else if(data == "cart_login"){
+	// 				window.location.href = "cart.php";
+	// 			}else{
+	// 				$("#e_msg").html(data);
+	// 				$(".overlay").hide();
+	// 			}
+	// 		}
+	// 	})
+	// 	console.log($("#login").serialize());
+	// })
+
+	//Show an element
+	var show = function (elem) {
+		elem.style.display = 'block';
+	};
+	
+	// Hide an element
+	var hide = function (elem) {
+		elem.style.display = 'none';
+	};
+	//turn FormData return into an object
+	var serializeForm = function (form) {
+		var obj = {};
+		var formData = new FormData(form);
+		for (var key of formData.keys()) {
+			obj[key] = formData.get(key);
+		}
+		return obj;
+	}; 
+
+	let loginForm = document.getElementById("login");
+	if (loginForm) {
+		loginForm.addEventListener("submit", event => {
+			event.preventDefault();
+			// document.getElementByClassName(".overlay").style.display = "block";
+			show(document.querySelector(".overlay"));
+			// var data = new FormData(loginForm);
+			var data = serializeForm(loginForm);
+			var ajax = new XMLHttpRequest();
+			ajax.open("POST", "../Controller/login.php", true);
+			ajax.onreadystatechange = function () {
+				if (ajax.readyState !== 4) // check to see if we're done
+					{ return; }
+				else if (ajax.status !== 200) // check to see if successful
+				{
+					alert("Request failed: " + ajax.statusText);
+				}
+			};
+			ajax.onload = function () {
+				var res = ajax.responseText;
+				if(res == "login_success"){
 					window.location.href = "profile.php";
-				}else if(data == "cart_login"){
+				}else if(res == "cart_login"){
 					window.location.href = "cart.php";
 				}else{
-					$("#e_msg").html(data);
-					$(".overlay").hide();
+					document.getElementById("e_msg").innerHTML = res;
+					hide(document.querySelector(".overlay"));
 				}
-			}
+			};
+			ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			ajax.send("email="+encodeURIComponent(data.email)+"&password="+data.password);
 		})
-	})
+	}
+	
 	//end
 
 	//Get User Information before checkout
-	$("#signup_form").on("submit",function(event){
-		event.preventDefault();
-		$(".overlay").show();
-		$.ajax({
-			url : "../Controller/registeajax.php",
-			method : "POST",
-			data : $("#signup_form").serialize(),
-			success : function(data){
-				$(".overlay").hide();
-				if (data == "register_success") {
+// 	$("#signup_form").on("submit",function(event){
+// 		event.preventDefault();
+// 		$(".overlay").show();
+// 		$.ajax({
+// 			url : "../Controller/register.php",
+// 			method : "POST",
+// 			data : $("#signup_form").serialize(),
+// 			success : function(data){
+// 				$(".overlay").hide();
+// 				if (data == "register_success") {
+// 					window.location.href = "cart.php";
+// 				}else{
+// 					$("#signup_msg").html(data);
+// 				}
+				
+// 			}
+// 		})
+// 		console.log($("#signup_form").serialize());
+// //            var element = document.getElementsByClassName("overlay");
+// //            if(element[0]) {
+// //                element[0].style.display = 'block';
+// //            }
+// //            var ajax = new XMLHttpRequest();
+// //            ajax.open("POST", "../Controller/action.php", true);
+// //            ajax.onreadystatechange = function () {
+// //                if (ajax.readyState !== 4) // check to see if we're done
+// //                    { return; }
+// //                else if (ajax.status !== 200) // check to see if successful
+// //                {
+// //                    alert("Request failed: " + ajax.statusText);
+// //                }
+// //            };
+// //            ajax.onload = function () {
+// //                if(element[0]) {
+// //                    element[0].style.display = 'none';
+// //                }
+// //                element = document.getElementById("get_category");
+// //                if(element) {
+// //                    element.innerHTML = ajax.responseText;
+// //                }
+// //            };
+// //            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+// //            ajax.send("category=1");
+// 	})
+
+
+	let signupForm = document.getElementById("signup_form");
+	if (signupForm) {
+		signupForm.addEventListener("submit", event => {
+			event.preventDefault();
+			// document.getElementByClassName(".overlay").style.display = "block";
+			show(document.querySelector(".overlay"));
+			// var data = new FormData(signupForm);
+			var data = serializeForm(signupForm);
+			var ajax = new XMLHttpRequest();
+			ajax.open("POST", "../Controller/register.php", true);
+			ajax.onreadystatechange = function () {
+				if (ajax.readyState !== 4) // check to see if we're done
+					{ return; }
+				else if (ajax.status !== 200) // check to see if successful
+				{
+					alert("Request failed: " + ajax.statusText);
+				}
+			};
+			ajax.onload = function () {
+				hide(document.querySelector(".overlay"));
+				var res = ajax.responseText;
+				if (res == "register_success") {
 					window.location.href = "cart.php";
 				}else{
-					$("#signup_msg").html(data);
+					document.getElementById("signup_msg").innerHTML = res;
+					window.location.href = "profile.php";
 				}
-				
-			}
+			};
+			ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			ajax.send("f_name="+data.f_name+"&l_name="+data.l_name+"&email="+encodeURIComponent(data.email)+"&password="+data.password+"&repassword="+data.repassword+"&mobile="+data.mobile+"&address1="+data.address1+"&address2="+data.address2);
 		})
-//            var element = document.getElementsByClassName("overlay");
-//            if(element[0]) {
-//                element[0].style.display = 'block';
-//            }
-//            var ajax = new XMLHttpRequest();
-//            ajax.open("POST", "../Controller/action.php", true);
-//            ajax.onreadystatechange = function () {
-//                if (ajax.readyState !== 4) // check to see if we're done
-//                    { return; }
-//                else if (ajax.status !== 200) // check to see if successful
-//                {
-//                    alert("Request failed: " + ajax.statusText);
-//                }
-//            };
-//            ajax.onload = function () {
-//                if(element[0]) {
-//                    element[0].style.display = 'none';
-//                }
-//                element = document.getElementById("get_category");
-//                if(element) {
-//                    element.innerHTML = ajax.responseText;
-//                }
-//            };
-//            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//            ajax.send("category=1");
-	})
+	}
+
 	//Get User Information before checkout end here
 
 	//Add Product into Cart
@@ -298,6 +388,7 @@ document.addEventListener("DOMContentLoaded", function() {
             ajax.onload = function () {
                 count_item();
                 getCartItem();
+				net_total();
                 element = document.getElementById("product_msg");
                 if(element) {
                     element.innerHTML = ajax.responseText;
@@ -356,6 +447,7 @@ document.addEventListener("DOMContentLoaded", function() {
             };
             ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             ajax.send("Common=1&getCartItem=1");
+			net_total();
 	}
 
 	//Fetch Cart item from Database to dropdown menu
@@ -367,26 +459,48 @@ document.addEventListener("DOMContentLoaded", function() {
 		('.total').each() this is loop funtion repeat for class .total and in every repetation we will perform sum operation of class .total value 
 		and then show the result into class .net_total
 	*/
-	$("body").delegate(".qty","keyup",function(event){
-		event.preventDefault();
-		var row = $(this).parent().parent();
-		var price = row.find('.price').val();
-		var qty = row.find('.qty').val();
-		if (isNaN(qty)) {
-			qty = 1;
-		};
-		if (qty < 1) {
-			qty = 1;
-		};
-		var total = price * qty;
-		row.find('.total').val(total);
-		var net_total=0;
-		$('.total').each(function(){
-			net_total += ($(this).val()-0);
-		})
-		$('.net_total').html("Total : $ " +net_total);
+	// $("body").delegate(".qty","keyup",function(event){
+	// 	event.preventDefault();
+	// 	var row = $(this).parent().parent();
+	// 	var price = row.find('.price').val();
+	// 	var qty = row.find('.qty').val();
+	// 	if (isNaN(qty)) {
+	// 		qty = 1;
+	// 	};
+	// 	// if (qty < 1) {
+	// 	// 	qty = 1;
+	// 	// };
+	// 	net_total();
+	// 	// var total = price * qty;
+	// 	// row.find('.total').val(total);
+	// 	// var net_total=0;
+	// 	// $('.total').each(function(){
+	// 	// 	net_total += ($(this).val()-0);
+	// 	// })
+	// 	// $('.net_total').html("Total : $ " +net_total);
 
-	})
+	// })
+
+	setTimeout(() => {
+		let quantityList = document.querySelectorAll(".qty");
+		if (quantityList) console.log(quantityList);
+		for (let i=0; i<quantityList.length; i++){
+			quantityList[i].addEventListener("keyup", function(event) {
+				event.preventDefault();
+				console.log("changing quantity");
+				var row = quantityList[i].parentElement.parentElement;
+				var price = row.querySelector(".price").value;
+				var qty = row.querySelector(".qty").value;
+				if (isNaN(qty)) {
+					qty = 1;
+				};
+				var total = price * qty;
+				row.querySelector(".total").value = total;
+				net_total();
+			})
+		}
+	}, 100);
+
 	//Change Quantity end here 
 
 	/*
@@ -446,7 +560,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	})
 	checkOutDetails();
-	net_total();
+	// setTimeout(() => {
+		net_total();
+	// }, 500); 
 	/*
 		checkOutDetails() function work for two purposes
 		First it will enable php isset($_POST["Common"]) in action.php page and inside that
@@ -485,19 +601,43 @@ document.addEventListener("DOMContentLoaded", function() {
 	/*
 		net_total function is used to calcuate total amount of cart item
 	*/
+	// function net_total(){
+	// 	var net_total = 0;
+    //             var CURRENCY = "VND";
+	// 	$('.qty').each(function(){
+	// 		var row = $(this).parent().parent();
+	// 		var price  = row.find('.price').val();
+	// 		var total = price * $(this).val()-0;
+	// 		row.find('.total').val(total);
+	// 	})
+	// 	$('.total').each(function(){
+	// 		net_total += ($(this).val()-0);
+	// 	})
+	// 	$('.net_total').html("Total : "+ CURRENCY + " " +net_total);
+	// }
+
 	function net_total(){
 		var net_total = 0;
-                var CURRENCY = "Rs";
-		$('.qty').each(function(){
-			var row = $(this).parent().parent();
-			var price  = row.find('.price').val();
-			var total = price * $(this).val()-0;
-			row.find('.total').val(total);
-		})
-		$('.total').each(function(){
-			net_total += ($(this).val()-0);
-		})
-		$('.net_total').html("Total : "+ CURRENCY + " " +net_total);
+        var CURRENCY = "VND";
+
+		var quantity = document.querySelectorAll(".qty");
+		for (let item of quantity){
+			var row = item.parentElement.parentElement;
+			var price = row.querySelector(".price").value;
+			var total = price * item.value-0;
+			row.querySelector(".total").value = total;
+		}
+		var total = document.querySelectorAll(".total");
+		for (let item of total){
+			net_total += ((item.value)-0);
+		}
+		// $('.net_total').html("Total : "+ CURRENCY + " " +net_total);
+
+		setTimeout(() => {
+		if(document.querySelector(".net_total")){
+			document.querySelector(".net_total").innerHTML = "Total : "+net_total + " " + CURRENCY;
+		}
+		}, 50);
 	}
 
 	//remove product from cart
