@@ -68,7 +68,7 @@ if(isset($_POST["getProduct"])){
                                             <div class='panel-body'>
                                                 <img src='../../../Public/product_images/$pro_image' style='width:220px; height:250px;'/>
                                             </div>
-                                            <div class='panel-heading'>".CURRENCY.". $pro_price.00/-
+                                            <div class='panel-heading'>$pro_price ".CURRENCY."
                                                 <button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>Add To Cart</button>
                                             </div>
                                     </div>
@@ -104,7 +104,7 @@ if(isset($_POST["get_selected_Category"]) || isset($_POST["selectBrand"]) || iss
                                                 <div class='panel-body'>
                                                         <img src='../../../Public/product_images/$pro_image' style='width:220px; height:250px;'/>
                                                 </div>
-                                                <div class='panel-heading'>Rs.$pro_price.00/-
+                                                <div class='panel-heading'>$pro_price ".CURRENCY."
                                                         <button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>Add To Cart</button>
                                                 </div>
                                         </div>
@@ -223,7 +223,7 @@ if (isset($_POST["Common"])) {
 						<div class="col-md-3">'.$n.'</div>
 						<div class="col-md-3"><img class="img-responsive" src="../../../Public/product_images/'.$product_image.'" /></div>
 						<div class="col-md-3">'.$product_title.'</div>
-						<div class="col-md-3">'.CURRENCY.''.$product_price.'</div>
+						<div class="col-md-3">'.$product_price.' '.CURRENCY.'</div>
 					</div>';
 				
 			}
@@ -280,7 +280,7 @@ if (isset($_POST["Common"])) {
 						</form>
 						<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
 							<input type="hidden" name="cmd" value="_cart">
-							<input type="hidden" name="business" value="shoppingcart@ecommerceastro.com">
+							<input type="hidden" name="business" value="shoppingcart@ecommerce.com">
 							<input type="hidden" name="upload" value="1">';
 							  
 							$x=0;
@@ -296,9 +296,9 @@ if (isset($_POST["Common"])) {
 								}
 							  
 							echo   
-								'<input type="hidden" name="return" value="http://localhost/project1/payment_success.php"/>
-					                <input type="hidden" name="notify_url" value="http://localhost/ecommerce-app-h/payment_success.php">
-									<input type="hidden" name="cancel_return" value="http://localhost/ecommerce-app-h/cancel.php"/>
+								'<input type="hidden" name="return" value="http://localhost/web-programming-project/Project/Application/User/Controller/payment_success.php"/>
+					                <input type="hidden" name="notify_url" value="http://localhost/web-programming-project/Project/Application/User/Controller/payment_success.php">
+									<input type="hidden" name="cancel_return" value="http://localhost/web-programming-project/Project/Application/User/View/cart.php"/>
 									<input type="hidden" name="currency_code" value="USD"/>
 									<input type="hidden" name="custom" value="'.$_SESSION["uid"].'"/>
 									<input style="float:right;margin-right:80px;" type="image" name="submit"
