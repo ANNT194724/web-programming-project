@@ -113,4 +113,4 @@
 
 
 
-<script type="text/javascript" src="./js/brands.js"></script>
+<script type="text/javascript" src="../Controller/js/brands.js"></script>

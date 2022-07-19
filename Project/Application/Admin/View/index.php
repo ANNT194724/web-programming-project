@@ -46,4 +46,4 @@ include "./templates/top.php";
 
 <?php include "./templates/footer.php"; ?>
 
-<script type="text/javascript" src="./js/admin.js"></script>
+<script type="text/javascript" src="../Controller/js/admin.js"></script>

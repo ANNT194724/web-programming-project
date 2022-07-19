@@ -41,7 +41,7 @@ if(isset($_SESSION["uid"])){
 		        <div class="form-group">
 		          <input type="text" class="form-control" placeholder="Search" id="search">
 		        </div>
-		        <button type="submit" class="btn btn-primary" id="search_btn"><span class="glyphicon glyphicon-search"></span></button>
+                            <button type="submit" class="btn btn-primary" id="search_btn" onclick="return false"><span class="glyphicon glyphicon-search"></span></button>
 		     </form>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span> Cart <span class="badge" >0</span></a>
@@ -151,51 +151,3 @@ if(isset($_SESSION["uid"])){
 	</div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

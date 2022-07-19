@@ -20,15 +20,15 @@ $(document).ready(function(){
 						$.each(resp.message.products, function(index, value){
 
 							productHTML += '<tr>'+
-								              '<td>'+''+'</td>'+
-								              '<td>'+ value.product_title +'</td>'+
-								              '<td><img width="60" height="60" src="../product_images/'+value.product_image+'"></td>'+
-								              '<td>'+ value.product_price +'</td>'+
-								              '<td>'+ value.product_qty +'</td>'+
-								              '<td>'+ value.cat_title +'</td>'+
-								              '<td>'+ value.brand_title +'</td>'+
-								              '<td><a class="btn btn-sm btn-info edit-product" style="color:#fff;"><span style="display:none;">'+JSON.stringify(value)+'</span><i class="fas fa-pencil-alt"></i></a>&nbsp;<a pid="'+value.product_id+'" class="btn btn-sm btn-danger delete-product" style="color:#fff;"><i class="fas fa-trash-alt"></i></a></td>'+
-								            '</tr>';
+                                                                        '<td>'+''+'</td>'+
+                                                                        '<td>'+ value.product_title +'</td>'+
+                                                                        '<td><img width="60" height="60" src="../../../Public/product_images/'+value.product_image+'"></td>'+
+                                                                        '<td>'+ value.product_price +'</td>'+
+                                                                        '<td>'+ value.product_qty +'</td>'+
+                                                                        '<td>'+ value.cat_title +'</td>'+
+                                                                        '<td>'+ value.brand_title +'</td>'+
+                                                                        '<td><a class="btn btn-sm btn-info edit-product" style="color:#fff;"><span style="display:none;">'+JSON.stringify(value)+'</span><i class="fas fa-pencil-alt"></i></a>&nbsp;<a pid="'+value.product_id+'" class="btn btn-sm btn-danger delete-product" style="color:#fff;"><i class="fas fa-trash-alt"></i></a></td>'+
+                                                                      '</tr>';
 
 						});
 

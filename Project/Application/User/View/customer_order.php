@@ -54,7 +54,7 @@ if(!isset($_SESSION["uid"])){
 									?>
 										<div class="row">
 											<div class="col-md-6">
-												<img style="float:right;" src="product_images/<?php echo $row['product_image']; ?>" class="img-responsive img-thumbnail"/>
+                                                                                            <img style="float:right;" src="../../../Public/product_images/<?php echo $row['product_image']; ?>" class="img-responsive img-thumbnail"/>
 											</div>
 											<div class="col-md-6">
 												<table>

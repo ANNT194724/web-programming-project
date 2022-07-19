@@ -4,9 +4,9 @@ session_start();
 
 if (isset($_SESSION["admin_id"])) {
 	session_destroy();
-	header("location:login.php");
+	header("location:../View/login.php");
 }else{
-	header("location:index.php");
+	header("location:../View/index.php");
 }
 
 

@@ -189,7 +189,7 @@
               <div class="form-group">
                 <label>Product Image <small>(format: jpg, jpeg, png)</small></label>
                 <input type="file" name="e_product_image" class="form-control">
-                <img src="../product_images/1.0x0.jpg" class="img-fluid" width="50">
+                <!--<img src="../../../Public/product_images/1.0x0.jpg" class="img-fluid" width="50">-->
               </div>
             </div>
             <input type="hidden" name="pid">
@@ -210,4 +210,4 @@
 
 
 
-<script type="text/javascript" src="./js/products.js"></script>
+<script type="text/javascript" src="../Controller/js/products.js"></script>

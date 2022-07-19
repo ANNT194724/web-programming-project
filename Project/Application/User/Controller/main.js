@@ -1,107 +1,181 @@
-$(document).ready(function(){
+document.addEventListener("DOMContentLoaded", function() {
 	cat();
 	brand();
 	product();
 	//cat() is a funtion fetching category record from database whenever page is load
 	function cat(){
-		$.ajax({
-			url	:	"../Controller/action.php",
-			method  :	"POST",
-			data	:	{category:1},
-			success	:	function(data){
-				$("#get_category").html(data);
-				
-			}
-		})
+            var ajax = new XMLHttpRequest();
+            ajax.open("POST", "../Controller/action.php", true);
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState !== 4) // check to see if we're done
+                    { return; }
+                else if (ajax.status !== 200) // check to see if successful
+                {
+                    alert("Request failed: " + ajax.statusText);
+                }
+            };
+            ajax.onload = function () {
+                var element = document.getElementById("get_category");
+                if(element) {
+                    element.innerHTML = ajax.responseText;
+                }
+            };
+            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            ajax.send("category=1");
 	}
 	//brand() is a funtion fetching brand record from database whenever page is load
 	function brand(){
-		$.ajax({
-			url	:	"../Controller/action.php",
-			method:	"POST",
-			data	:	{brand:1},
-			success	:	function(data){
-				$("#get_brand").html(data);
-			}
-		})
+            var ajax = new XMLHttpRequest();
+            ajax.open("POST", "../Controller/action.php", true);
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState !== 4) // check to see if we're done
+                    { return; }
+                else if (ajax.status !== 200) // check to see if successful
+                {
+                    alert("Request failed: " + ajax.statusText);
+                }
+            };
+            ajax.onload = function () {
+                var element = document.getElementById("get_brand");
+                if(element) {
+                    element.innerHTML = ajax.responseText;
+                }
+            };
+            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            ajax.send("brand=1");
 	}
 	//product() is a funtion fetching product record from database whenever page is load
-		function product(){
-		$.ajax({
-			url	:	"../Controller/action.php",
-			method:	"POST",
-			data	:	{getProduct:1},
-			success	:	function(data){
-				$("#get_product").html(data);
-			}
-		})
-	}
+        function product(){
+            var ajax = new XMLHttpRequest();
+            ajax.open("POST", "../Controller/action.php", true);
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState !== 4) // check to see if we're done
+                    { return; }
+                else if (ajax.status !== 200) // check to see if successful
+                {
+                    alert("Request failed: " + ajax.statusText);
+                }
+            };
+            ajax.onload = function () {
+                var element = document.getElementById("get_product");
+                if(element) {
+                    element.innerHTML = ajax.responseText;
+                }
+            };
+            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            ajax.send("getProduct=1");
+        }
 	/*	when page is load successfully then there is a list of categories when user click on category we will get category id and 
 		according to id we will show products
 	*/
-	$("body").delegate(".category","click",function(event){
-		$("#get_product").html("<h3>Loading...</h3>");
-		event.preventDefault();
-		var cid = $(this).attr('cid');
-		
-			$.ajax({
-			url	:	"../Controller/action.php",
-			method	:	"POST",
-			data	:	{get_seleted_Category:1,cat_id:cid},
-			success	:	function(data){
-				$("#get_product").html(data);
-				if($("body").width() < 480){
-					$("body").scrollTop(683);
-				}
-			}
-		})
-	
-	})
-
+        setTimeout(() => {
+            let catList = document.querySelectorAll('.category');
+            for (let i = 0; i < catList.length; i++){
+                catList[i].addEventListener('click', e => {
+                    catList[i].addEventListener("click", function(event){
+                        document.getElementById("get_product").innerHTML = "<h3>Loading</h3>";
+                        event.preventDefault();
+                        var cid = catList[i].getAttribute("cid");
+                        var ajax = new XMLHttpRequest();
+                        ajax.open("POST", "../Controller/action.php", true);
+                        ajax.onreadystatechange = function () {
+                                if (ajax.readyState !== 4) // check to see if we're done
+                                        { return; }
+                                else if (ajax.status !== 200) // check to see if successful
+                                {
+                                        alert("Request failed: " + ajax.statusText);
+                                }
+                        };
+                        ajax.onload = function () {
+                                var element = document.getElementById("get_product");
+                                if(element) {
+                                        element.innerHTML = ajax.responseText;
+                                        if(document.body.clientWidth < 480) {
+                                                document.body.scrollTop = 683;
+                                        }
+                                }
+                        };
+                        ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                        ajax.send("get_selected_Category=1&cat_id="+cid.toString());
+                        addButton();
+                    });
+                });
+            }
+        }, 30);
 	/*	when page is load successfully then there is a list of brands when user click on brand we will get brand id and 
 		according to brand id we will show products
 	*/
-	$("body").delegate(".selectBrand","click",function(event){
-		event.preventDefault();
-		$("#get_product").html("<h3>Loading...</h3>");
-		var bid = $(this).attr('bid');
-		
-			$.ajax({
-			url		:	"../Controller/action.php",
-			method	:	"POST",
-			data	:	{selectBrand:1,brand_id:bid},
-			success	:	function(data){
-				$("#get_product").html(data);
-				if($("body").width() < 480){
-					$("body").scrollTop(683);
-				}
-			}
-		})
-	
-	})
+        setTimeout(() => {
+            let brandList = document.querySelectorAll('.selectBrand');
+            for (let i = 0; i < brandList.length; i++){
+		brandList[i].addEventListener('click', e => {
+                    brandList[i].addEventListener("click", function(event){
+                        document.getElementById("get_product").innerHTML = "<h3>Loading</h3>";
+                        event.preventDefault();
+                        var bid = brandList[i].getAttribute("bid");
+                        var ajax = new XMLHttpRequest();
+                        ajax.open("POST", "../Controller/action.php", true);
+                        ajax.onreadystatechange = function () {
+                                if (ajax.readyState !== 4) // check to see if we're done
+                                        { return; }
+                                else if (ajax.status !== 200) // check to see if successful
+                                {
+                                        alert("Request failed: " + ajax.statusText);
+                                }
+                        };
+                        ajax.onload = function () {
+                                var element = document.getElementById("get_product");
+                                if(element) {
+                                        element.innerHTML = ajax.responseText;
+                                        if(document.body.clientWidth < 480) {
+                                                document.body.scrollTop = 683;
+                                        }
+                                }
+                        };
+                        ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                        ajax.send("selectBrand=1&brand_id="+bid.toString());
+                        addButton();
+                        });
+                    });
+                }
+            }, 50);
 	/*
 		At the top of page there is a search box with search button when user put name of product then we will take the user 
 		given string and with the help of sql query we will match user given string to our database keywords column then matched product 
 		we will show 
 	*/
-	$("#search_btn").click(function(){
-		$("#get_product").html("<h3>Loading...</h3>");
-		var keyword = $("#search").val();
-		if(keyword != ""){
-			$.ajax({
-			url		:	"../Controller/action.php",
-			method	:	"POST",
-			data	:	{search:1,keyword:keyword},
-			success	:	function(data){ 
-				$("#get_product").html(data);
-				if($("body").width() < 480){
-					$("body").scrollTop(683);
-				}
-			}
-		})
-		}
-	})
-	//end
+    var searchButton = document.getElementById("search_btn");
+    if(searchButton){
+        searchButton.addEventListener("click", function(){
+        document.getElementById("get_product").innerHTML = "<h3>Loading</h3>";
+            var keyword = document.getElementById("search").value;
+            if(keyword !== "") {
+                var ajax = new XMLHttpRequest();
+                ajax.open("POST", "../Controller/action.php", true);
+                ajax.onreadystatechange = function () {
+                    if (ajax.readyState !== 4) // check to see if we're done
+                            { return; }
+                    else if (ajax.status !== 200) // check to see if successful
+                    {
+                            alert("Request failed: " + ajax.statusText);
+                    }
+                };
+                ajax.onload = function () {
+                    var element = document.getElementById("get_product");
+                    if(element) {
+                            element.innerHTML = ajax.responseText;
+                            if(document.body.clientWidth < 480) {
+                                    document.body.scrollTop = 683;
+                            }
+                    }
+                };
+                ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                ajax.send("search=1&keyword="+keyword);
+            }
+            addButton();
+        });
+    } 
+    //end
 
 
 	/*
@@ -130,7 +204,7 @@ $(document).ready(function(){
 		})
 	})
 	//end
-
+        
 	//Get User Information before checkout
 	$("#signup_form").on("submit",function(event){
 		event.preventDefault();
@@ -149,52 +223,96 @@ $(document).ready(function(){
 				
 			}
 		})
-	})
+                });
 	//Get User Information before checkout end here
 
 	//Add Product into Cart
-	$("body").delegate("#product","click",function(event){
-		var pid = $(this).attr("pid");
-		event.preventDefault();
-		$(".overlay").show();
-		$.ajax({
-			url : "../Controller/action.php",
-			method : "POST",
-			data : {addToCart:1,proId:pid},
-			success : function(data){
-				count_item();
-				getCartItem();
-				$('#product_msg').html(data);
-				$('.overlay').hide();
-			}
-		})
-	})
+    addButton();
+    function addButton(){
+        setTimeout(() => {
+            prodList = document.querySelectorAll("#product");
+            for (let i = 0; i < prodList.length; i++){
+                prodList[i].addEventListener("click", function(event){
+                    var pid = prodList[i].getAttribute("pid");
+                    event.preventDefault();
+                    var element = document.getElementsByClassName("overlay");
+                    if(element[0]) {
+                        element[0].style.display = 'block';
+                    }
+                    var ajax = new XMLHttpRequest();
+                    ajax.open("POST", "../Controller/action.php", true);
+                    ajax.onreadystatechange = function () {
+                        if (ajax.readyState !== 4) // check to see if we're done
+                            { return; }
+                        else if (ajax.status !== 200) // check to see if successful
+                        {
+                            alert("Request failed: " + ajax.statusText);
+                        }
+                    };
+                    ajax.onload = function () {
+                        count_item();
+                        getCartItem();
+                        element = document.getElementById("product_msg");
+                        if(element) {
+                            element.innerHTML = ajax.responseText;
+                        }
+                        element = document.getElementsByClassName("overlay");
+                        if(element[0]) {
+                            element[0].style.display = 'none';
+                        }
+                    };
+                    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    ajax.send("addToCart=1&&proId="+pid.toString());
+                });
+            }
+        },200);
+    }
 	//Add Product into Cart End Here
 	//Count user cart items funtion
 	count_item();
 	function count_item(){
-		$.ajax({
-			url : "../Controller/action.php",
-			method : "POST",
-			data : {count_item:1},
-			success : function(data){
-				$(".badge").html(data);
-			}
-		})
+            var ajax = new XMLHttpRequest();
+            ajax.open("POST", "../Controller/action.php", true);
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState !== 4) // check to see if we're done
+                    { return; }
+                else if (ajax.status !== 200) // check to see if successful
+                {
+                    alert("Request failed: " + ajax.statusText);
+                }
+            };
+            ajax.onload = function () {
+                var badge = document.getElementsByClassName("badge");
+                if(badge[0]) {
+                    badge[0].innerHTML = ajax.responseText;
+                }
+            };
+            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            ajax.send("count_item=1");
 	}
 	//Count user cart items funtion end
 
 	//Fetch Cart item from Database to dropdown menu
 	getCartItem();
 	function getCartItem(){
-		$.ajax({
-			url : "../Controller/action.php",
-			method : "POST",
-			data : {Common:1,getCartItem:1},
-			success : function(data){
-				$("#cart_product").html(data);
-			}
-		})
+            var ajax = new XMLHttpRequest();
+            ajax.open("POST", "../Controller/action.php", true);
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState !== 4) // check to see if we're done
+                    { return; }
+                else if (ajax.status !== 200) // check to see if successful
+                {
+                    alert("Request failed: " + ajax.statusText);
+                }
+            };
+            ajax.onload = function () {
+                var element = document.getElementById("cart_product");
+                if(element) {
+                    element.innerHTML = ajax.responseText;
+                }
+            };
+            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            ajax.send("Common=1&getCartItem=1");
 	}
 
 	//Fetch Cart item from Database to dropdown menu
@@ -232,39 +350,68 @@ $(document).ready(function(){
 		whenever user click on .remove class we will take product id of that row 
 		and send it to action.php to perform product removal operation
 	*/
-	$("body").delegate(".remove","click",function(event){
-		var remove = $(this).parent().parent().parent();
-		var remove_id = remove.find(".remove").attr("remove_id");
-		$.ajax({
-			url	:	"../Controller/action.php",
-			method	:	"POST",
-			data	:	{removeItemFromCart:1,rid:remove_id},
-			success	:	function(data){
-				$("#cart_msg").html(data);
-				checkOutDetails();
-			}
-		})
-	})
+    setInterval(() => {
+        var removeList = document.getElementsByClassName("remove");
+        for(var i = 0; i < removeList.length; i++) {
+            removeList[i].addEventListener("click", function() {
+                var remove_id = this.getAttribute("remove_id");
+                var ajax = new XMLHttpRequest();
+                ajax.open("POST", "../Controller/action.php", true);
+                ajax.onreadystatechange = function () {
+                    if (ajax.readyState !== 4) // check to see if we're done
+                        { return; }
+                    else if (ajax.status !== 200) // check to see if successful
+                    {
+                        alert("Request failed: " + ajax.statusText);
+                    }
+                };
+                ajax.onload = function () {
+                    var element = document.getElementById("cart_msg");
+                    if(element) {
+                        element.innerHTML = ajax.responseText;
+                    }
+                    checkOutDetails();
+                };
+                ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                ajax.send("removeItemFromCart=1&rid="+remove_id.toString());
+            });
+        }
+    },1000);
 	/*
 		whenever user click on .update class we will take product id of that row 
 		and send it to action.php to perform product qty updation operation
 	*/
-	$("body").delegate(".update","click",function(event){
-		var update = $(this).parent().parent().parent();
-		var update_id = update.find(".update").attr("update_id");
-		var qty = update.find(".qty").val();
-		$.ajax({
-			url	:	"../Controller/action.php",
-			method	:	"POST",
-			data	:	{updateCartItem:1,update_id:update_id,qty:qty},
-			success	:	function(data){
-				$("#cart_msg").html(data);
-				checkOutDetails();
-			}
-		})
-
-
-	})
+    setInterval(() => {
+//	$("body").delegate(".update","click",function(event){
+        var updateList = document.getElementsByClassName("update");
+        for(var i = 0; i < updateList.length; i++) {
+            updateList[i].addEventListener("click", function() {
+                var update_id = this.getAttribute("update_id");
+                var update = this.parentNode.parentNode.parentNode;
+                var qty = update.querySelector(".qty").value;
+                var ajax = new XMLHttpRequest();
+                ajax.open("POST", "../Controller/action.php", true);
+                ajax.onreadystatechange = function () {
+                    if (ajax.readyState !== 4) // check to see if we're done
+                        { return; }
+                    else if (ajax.status !== 200) // check to see if successful
+                    {
+                        alert("Request failed: " + ajax.statusText);
+                    }
+                };
+                ajax.onload = function () {
+                    var element = document.getElementById("cart_msg");
+                    if(element) {
+                        element.innerHTML = ajax.responseText;
+                    }
+                    checkOutDetails();
+                };
+                ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                ajax.send("updateCartItem=1&update_id="+update_id.toString()+"&qty="+qty.toString());
+            });
+        }
+    },1000);
+//	})
 	checkOutDetails();
 	net_total();
 	/*
@@ -275,17 +422,32 @@ $(document).ready(function(){
 		checkOutDetails is used to show cart item into Cart.php page
 	*/
 	function checkOutDetails(){
-	 $('.overlay').show();
-		$.ajax({
-			url : "../Controller/action.php",
-			method : "POST",
-			data : {Common:1,checkOutDetails:1},
-			success : function(data){
-				$('.overlay').hide();
-				$("#cart_checkout").html(data);
-					net_total();
-			}
-		})
+            var element = document.getElementsByClassName("overlay");
+            if(element[0]) {
+                element[0].style.display = 'block';
+            }
+            var ajax = new XMLHttpRequest();
+            ajax.open("POST", "../Controller/action.php", true);
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState !== 4) // check to see if we're done
+                    { return; }
+                else if (ajax.status !== 200) // check to see if successful
+                {
+                    alert("Request failed: " + ajax.statusText);
+                }
+            };
+            ajax.onload = function () {
+                if(element[0]) {
+                    element[0].style.display = 'none';
+                }
+                element = document.getElementById("cart_checkout");
+                if(element) {
+                    element.innerHTML = ajax.responseText;
+                }
+                net_total();
+            };
+            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            ajax.send("Common=1&checkOutDetails=1");
 	}
 	/*
 		net_total function is used to calcuate total amount of cart item
@@ -309,44 +471,46 @@ $(document).ready(function(){
 
 	page();
 	function page(){
-		$.ajax({
-			url	:	"../Controller/action.php",
-			method	:	"POST",
-			data	:	{page:1},
-			success	:	function(data){
-				$("#pageno").html(data);
-			}
-		})
+            var ajax = new XMLHttpRequest();
+            ajax.open("POST", "../Controller/action.php", true);
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState !== 4) // check to see if we're done
+                    { return; }
+                else if (ajax.status !== 200) // check to see if successful
+                {
+                    alert("Request failed: " + ajax.statusText);
+                }
+            };
+            ajax.onload = function () {
+                var element = document.getElementById("pageno");
+                if(element) {
+                    element.innerHTML = ajax.responseText;
+                }
+                checkOutDetails();
+            };
+            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            ajax.send("page=1");
 	}
 	$("body").delegate("#page","click",function(){
-		var pn = $(this).attr("page");
-		$.ajax({
-			url	:	"../Controller/action.php",
-			method	:	"POST",
-			data	:	{getProduct:1,setPage:1,pageNumber:pn},
-			success	:	function(data){
-				$("#get_product").html(data);
-			}
-		})
+            var pn = $(this).attr("page");
+            var ajax = new XMLHttpRequest();
+            ajax.open("POST", "../Controller/action.php", true);
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState !== 4) // check to see if we're done
+                    { return; }
+                else if (ajax.status !== 200) // check to see if successful
+                {
+                    alert("Request failed: " + ajax.statusText);
+                }
+            };
+            ajax.onload = function () {
+                var element = document.getElementById("get_product");
+                if(element) {
+                    element.innerHTML = ajax.responseText;
+                }
+                checkOutDetails();
+            };
+            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            ajax.send("getProduct=1&setPage=1&Pagenumber="+pn.toString());
 	})
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+});
