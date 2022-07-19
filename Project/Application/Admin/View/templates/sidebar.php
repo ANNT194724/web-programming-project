@@ -13,37 +13,37 @@
 
 
           <li class="nav-item">
-            <a class="nav-link <?php echo ($page == '' || $page == 'index.php') ? 'active' : ''; ?>" href="../../index.php">
+            <a class="nav-link <?php echo ($page == '' || $page == 'index.php') ? 'active' : ''; ?>" href="index.php">
               <span data-feather="home"></span>
               Dashboard <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?php echo ($page == 'customer_orders.php') ? 'active' : ''; ?>" href="../customer_orders.php">
+            <a class="nav-link <?php echo ($page == 'customer_orders.php') ? 'active' : ''; ?>" href="customer_orders.php">
               <span data-feather="clipboard"></span>
               Orders
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?php echo ($page == 'products.php') ? 'active' : ''; ?>" href="../products.php">
+            <a class="nav-link <?php echo ($page == 'products.php') ? 'active' : ''; ?>" href="products.php">
               <span data-feather="shopping-cart"></span>
               Products
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?php echo ($page == 'brands.php') ? 'active' : ''; ?>" href="../brands.php">
+            <a class="nav-link <?php echo ($page == 'brands.php') ? 'active' : ''; ?>" href="brands.php">
               <span data-feather="box"></span>
               Brands
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?php echo ($page == 'categories.php') ? 'active' : ''; ?>" href="../categories.php">
+            <a class="nav-link <?php echo ($page == 'categories.php') ? 'active' : ''; ?>" href="categories.php">
               <span data-feather="layers"></span>
               Categories
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?php echo ($page == 'customers.php') ? 'active' : ''; ?>" href="../customers.php">
+            <a class="nav-link <?php echo ($page == 'customers.php') ? 'active' : ''; ?>" href="customers.php">
               <span data-feather="users"></span>
               Customers
             </a>

@@ -5,17 +5,13 @@ include "../../../DB/db.php";
 if(isset($_POST["category"])){
 	$category_query = "SELECT * FROM categories";
 	$run_query = mysqli_query($con,$category_query) or die(mysqli_error($con));
-	echo "
-		<div class='nav nav-pills nav-stacked'>
-			<li class='active'><a href='#'><h4>Product Categories</h4></a></li>
-	";
+	echo "<div class='nav nav-pills nav-stacked'>
+                <li class='active'><a href='#'><h4>Product Categories</h4></a></li>";
 	if(mysqli_num_rows($run_query) > 0){
 		while($row = mysqli_fetch_array($run_query)){
 			$cid = $row["cat_id"];
 			$cat_name = $row["cat_title"];
-			echo "
-					<li><a href='#' class='category' cid='$cid'>$cat_name</a></li>
-			";
+			echo "<li><a href='#' class='category' cid='$cid'>$cat_name</a></li>";
 		}
 		echo "</div>";
 	}
@@ -31,9 +27,7 @@ if(isset($_POST["brand"])){
 		while($row = mysqli_fetch_array($run_query)){
 			$bid = $row["brand_id"];
 			$brand_name = $row["brand_title"];
-			echo "
-					<li><a href='#' class='selectBrand' bid='$bid'>$brand_name</a></li>
-			";
+			echo "<li><a href='#' class='selectBrand' bid='$bid'>$brand_name</a></li>";
 		}
 		echo "</div>";
 	}
@@ -69,22 +63,22 @@ if(isset($_POST["getProduct"])){
 			$pro_image = $row['product_image'];
 			echo "
 				<div class='col-md-4'>
-							<div class='panel panel-info'>
-								<div class='panel-heading'>$pro_title</div>
-								<div class='panel-body'>
-									<img src='../../../Public/product_images/$pro_image' style='width:220px; height:250px;'/>
-								</div>
-								<div class='panel-heading'>".CURRENCY.". $pro_price.00/-
-									<button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>Add To Cart</button>
-								</div>
-							</div>
-						</div>	
+                                    <div class='panel panel-info'>
+                                            <div class='panel-heading'>$pro_title</div>
+                                            <div class='panel-body'>
+                                                <img src='../../../Public/product_images/$pro_image' style='width:220px; height:250px;'/>
+                                            </div>
+                                            <div class='panel-heading'>$pro_price ".CURRENCY."
+                                                <button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>Add To Cart</button>
+                                            </div>
+                                    </div>
+                                </div>	
 			";
 		}
 	}
 }
-if(isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isset($_POST["search"])){
-	if(isset($_POST["get_seleted_Category"])){
+if(isset($_POST["get_selected_Category"]) || isset($_POST["selectBrand"]) || isset($_POST["search"])){
+	if(isset($_POST["get_selected_Category"])){
 		$id = $_POST["cat_id"];
 		$sql = "SELECT * FROM products WHERE product_cat = '$id'";
 	}else if(isset($_POST["selectBrand"])){
@@ -92,7 +86,7 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isse
 		$sql = "SELECT * FROM products WHERE product_brand = '$id'";
 	}else {
 		$keyword = $_POST["keyword"];
-		$sql = "SELECT * FROM products WHERE product_keywords LIKE '%$keyword%'";
+		$sql = "SELECT * FROM products WHERE product_title LIKE '%$keyword%'";
 	}
 	
 	$run_query = mysqli_query($con,$sql);
@@ -105,20 +99,19 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isse
 			$pro_image = $row['product_image'];
 			echo "
 				<div class='col-md-4'>
-							<div class='panel panel-info'>
-								<div class='panel-heading'>$pro_title</div>
-								<div class='panel-body'>
-									<img src='../../../Public/product_images/$pro_image' style='width:220px; height:250px;'/>
-								</div>
-								<div class='panel-heading'>Rs.$pro_price.00/-
-									<button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>Add To Cart</button>
-								</div>
-							</div>
-						</div>	
+                                        <div class='panel panel-info'>
+                                                <div class='panel-heading'>$pro_title</div>
+                                                <div class='panel-body'>
+                                                        <img src='../../../Public/product_images/$pro_image' style='width:220px; height:250px;'/>
+                                                </div>
+                                                <div class='panel-heading'>$pro_price ".CURRENCY."
+                                                        <button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>Add To Cart</button>
+                                                </div>
+                                        </div>
+                                </div>	
 			";
 		}
 	}
-	
 
 
 	if(isset($_POST["addToCart"])){
@@ -140,7 +133,7 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isse
 						<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
 						<b>Product is already added into the cart Continue Shopping..!</b>
 				</div>
-			";//not in video
+			";
 		} else {
 			$sql = "INSERT INTO `cart`
 			(`p_id`, `ip_add`, `user_id`, `qty`) 
@@ -228,9 +221,9 @@ if (isset($_POST["Common"])) {
 				echo '
 					<div class="row">
 						<div class="col-md-3">'.$n.'</div>
-						<div class="col-md-3"><img class="img-responsive" src="product_images/'.$product_image.'" /></div>
+						<div class="col-md-3"><img class="img-responsive" src="../../../Public/product_images/'.$product_image.'" /></div>
 						<div class="col-md-3">'.$product_title.'</div>
-						<div class="col-md-3">'.CURRENCY.''.$product_price.'</div>
+						<div class="col-md-3">'.$product_price.' '.CURRENCY.'</div>
 					</div>';
 				
 			}
@@ -256,20 +249,20 @@ if (isset($_POST["Common"])) {
 
 					echo 
 						'<div class="row">
-								<div class="col-md-2">
-									<div class="btn-group">
-										<a href="#" remove_id="'.$product_id.'" class="btn btn-danger remove"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" update_id="'.$product_id.'" class="btn btn-primary update"><span class="glyphicon glyphicon-ok-sign"></span></a>
-									</div>
-								</div>
-								<input type="hidden" name="product_id[]" value="'.$product_id.'"/>
-								<input type="hidden" name="" value="'.$cart_item_id.'"/>
-								<div class="col-md-2"><img class="img-responsive" src="product_images/'.$product_image.'"></div>
-								<div class="col-md-2">'.$product_title.'</div>
-								<div class="col-md-2"><input type="text" class="form-control qty" value="'.$qty.'" ></div>
-								<div class="col-md-2"><input type="text" class="form-control price" value="'.$product_price.'" readonly="readonly"></div>
-								<div class="col-md-2"><input type="text" class="form-control total" value="'.$product_price.'" readonly="readonly"></div>
-							</div>';
+                                                    <div class="col-md-2">
+                                                        <div class="btn-group">
+                                                            <a href="#" remove_id="'.$product_id.'" class="btn btn-danger remove"><span class="glyphicon glyphicon-trash"></span></a>
+                                                            <a href="#" update_id="'.$product_id.'" class="btn btn-primary update"><span class="glyphicon glyphicon-ok-sign"></span></a>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" name="product_id[]" value="'.$product_id.'"/>
+                                                    <input type="hidden" name="" value="'.$cart_item_id.'"/>
+                                                    <div class="col-md-2"><img class="img-responsive" src="../../../Public/product_images/'.$product_image.'"></div>
+                                                    <div class="col-md-2">'.$product_title.'</div>
+                                                    <div class="col-md-2"><input type="text" class="form-control qty" value="'.$qty.'" ></div>
+                                                    <div class="col-md-2"><input type="text" class="form-control price" value="'.$product_price.'" readonly="readonly"></div>
+                                                    <div class="col-md-2"><input type="text" class="form-control total" value="'.$product_price.'" readonly="readonly"></div>
+                                                </div>';
 				}
 				
 				echo '<div class="row">
@@ -287,7 +280,7 @@ if (isset($_POST["Common"])) {
 						</form>
 						<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
 							<input type="hidden" name="cmd" value="_cart">
-							<input type="hidden" name="business" value="shoppingcart@ecommerceastro.com">
+							<input type="hidden" name="business" value="shoppingcart@ecommerce.com">
 							<input type="hidden" name="upload" value="1">';
 							  
 							$x=0;
@@ -303,9 +296,9 @@ if (isset($_POST["Common"])) {
 								}
 							  
 							echo   
-								'<input type="hidden" name="return" value="http://localhost/project1/payment_success.php"/>
-					                <input type="hidden" name="notify_url" value="http://localhost/ecommerce-app-h/payment_success.php">
-									<input type="hidden" name="cancel_return" value="http://localhost/ecommerce-app-h/cancel.php"/>
+								'<input type="hidden" name="return" value="http://localhost/web-programming-project/Project/Application/User/Controller/payment_success.php"/>
+					                <input type="hidden" name="notify_url" value="http://localhost/web-programming-project/Project/Application/User/Controller/payment_success.php">
+									<input type="hidden" name="cancel_return" value="http://localhost/web-programming-project/Project/Application/User/View/cart.php"/>
 									<input type="hidden" name="currency_code" value="USD"/>
 									<input type="hidden" name="custom" value="'.$_SESSION["uid"].'"/>
 									<input style="float:right;margin-right:80px;" type="image" name="submit"
@@ -329,9 +322,9 @@ if (isset($_POST["removeItemFromCart"])) {
 	}
 	if(mysqli_query($con,$sql)){
 		echo "<div class='alert alert-danger'>
-						<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-						<b>Product is removed from cart</b>
-				</div>";
+                        <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                        <b>Product is removed from cart</b>
+                    </div>";
 		exit();
 	}
 }
@@ -348,9 +341,9 @@ if (isset($_POST["updateCartItem"])) {
 	}
 	if(mysqli_query($con,$sql)){
 		echo "<div class='alert alert-info'>
-						<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-						<b>Product is updated</b>
-				</div>";
+                            <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                            <b>Product is updated</b>
+                    </div>";
 		exit();
 	}
 }
