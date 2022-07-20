@@ -11,10 +11,10 @@ if(!isset($_SESSION["uid"])){
 	<head>
 		<meta charset="UTF-8">
 		<title>Ecommerce</title>
-		<link rel="stylesheet" href="css/bootstrap.min.css"/>
-		<script src="js/jquery2.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="main.js"></script>
+		<link rel="stylesheet" href="../../../Public/css/bootstrap.min.css"/>
+		<script src="../../../Public/js/jquery2.js"></script>
+		<script src="../../../Public/js/bootstrap.min.js"></script>
+		<script src="../Controller/main.js"></script>
 		<style>
 			table tr td {padding:10px;}
 		</style>
@@ -45,7 +45,7 @@ if(!isset($_SESSION["uid"])){
 						<h1>Customer Order details</h1>
 						<hr/>
 						<?php
-							include_once("db.php");
+							include_once("../../../DB/db.php");
 							$user_id = $_SESSION["uid"];
 							$orders_list = "SELECT o.order_id,o.user_id,o.product_id,o.qty,o.trx_id,o.p_status,p.product_title,p.product_price,p.product_image FROM orders o,products p WHERE o.user_id='$user_id' AND o.product_id=p.product_id";
 							$query = mysqli_query($con,$orders_list);

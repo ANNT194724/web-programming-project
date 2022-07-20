@@ -130,8 +130,8 @@ if(isset($_POST["get_selected_Category"]) || isset($_POST["selectBrand"]) || iss
 		if($count > 0){
 			echo "
 				<div class='alert alert-warning'>
-						<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-						<b>Product is already added into the cart Continue Shopping..!</b>
+                                        <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                                        <b>Product is already added into the cart Continue Shopping..!</b>
 				</div>
 			";
 		} else {
@@ -153,8 +153,8 @@ if(isset($_POST["get_selected_Category"]) || isset($_POST["selectBrand"]) || iss
 			if (mysqli_num_rows($query) > 0) {
 				echo "
 					<div class='alert alert-warning'>
-							<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-							<b>Product is already added into the cart Continue Shopping..!</b>
+                                                <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                                                <b>Product is already added into the cart Continue Shopping..!</b>
 					</div>";
 					exit();
 			}
