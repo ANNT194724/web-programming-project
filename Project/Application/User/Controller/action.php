@@ -86,7 +86,7 @@ if(isset($_POST["get_selected_Category"]) || isset($_POST["selectBrand"]) || iss
 		$sql = "SELECT * FROM products WHERE product_brand = '$id'";
 	}else {
 		$keyword = $_POST["keyword"];
-		$sql = "SELECT * FROM products WHERE product_title LIKE '%$keyword%'";
+		$sql = "SELECT * FROM products WHERE product_title LIKE '%$keyword%' OR product_keywords LIKE '%$keyword%'";
 	}
 	
 	$run_query = mysqli_query($con,$sql);
